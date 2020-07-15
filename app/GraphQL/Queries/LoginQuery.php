@@ -16,7 +16,7 @@ class LoginQuery extends Query {
 
     public function type(): Type
     {
-        return GraphQL::type('User'); // retrieve a single user details
+        return GraphQL::type('User'); //  retrieve a single user detail
     }
 
     public function rules(array $args = []): array
