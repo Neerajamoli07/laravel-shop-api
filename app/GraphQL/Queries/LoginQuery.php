@@ -1,6 +1,5 @@
 <?php 
 namespace App\GraphQL\Queries;
-
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -9,15 +8,15 @@ use Illuminate\Support\Facades\DB;
 //use GraphQL\Type\Definition\ResolveInfo;
 use App\User;
 
-class UserQuery extends Query {
+class LoginQuery extends Query {
 
     protected $attributes = [
-        'name'  => 'User',
+        'name'  => 'User'
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('User'); //retrieve a single user
+        return GraphQL::type('User'); //retrieve a single user details
     }
 
     public function rules(array $args = []): array
@@ -30,8 +29,12 @@ class UserQuery extends Query {
     public function args(): array
     {
         return [
-            'id'    => [
-                'name' => 'id',
+            'name'    => [
+                'name' => 'name',
+                'type' => Type::string(),
+            ],
+            'password'    => [
+                'name' => 'password',
                 'type' => Type::string(),
             ],
         ];
@@ -40,7 +43,8 @@ class UserQuery extends Query {
     public function resolve($root, $args)
     {
         return User::select('*')
-        ->where('id',$args['id'])
+        ->where('name',$args['name'])
+        ->where('password',$args['password'])
         ->first();
     }
 

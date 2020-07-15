@@ -1,6 +1,5 @@
 <?php 
 namespace App\GraphQL\Queries;
-
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -12,12 +11,12 @@ use App\User;
 class UserQuery extends Query {
 
     protected $attributes = [
-        'name'  => 'User',
+        'name'  => 'User'
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('User'); //retrieve a single user
+        return GraphQL::type('User'); //retrieve a single user details
     }
 
     public function rules(array $args = []): array
@@ -30,8 +29,12 @@ class UserQuery extends Query {
     public function args(): array
     {
         return [
-            'id'    => [
-                'name' => 'id',
+            'name'    => [
+                'name' => 'name',
+                'type' => Type::string(),
+            ],
+            'password'    => [
+                'name' => 'password',
                 'type' => Type::string(),
             ],
         ];
@@ -39,7 +42,10 @@ class UserQuery extends Query {
 
     public function resolve($root, $args)
     {
-         return User::where('id',$args['id'])->first();
+        return User::select('*')
+        ->where('name', $agrs['name'])
+        ->where('password', $agrs['password']= bcrypt($args['password']))
+        ->first();
     }
 
 }
