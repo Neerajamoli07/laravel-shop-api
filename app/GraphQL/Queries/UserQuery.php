@@ -17,7 +17,7 @@ class UserQuery extends Query {
 
     public function type(): Type
     {
-        return GraphQL::type('User'); //retrieve a single user
+        return GraphQL::type('User'); // retrieve a single user details
     }
 
     public function rules(array $args = []): array
