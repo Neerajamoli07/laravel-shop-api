@@ -102,7 +102,9 @@ return [
         'default' => [
             'query' => [
                 //retrieve a single user
-                'user' => App\GraphQL\Queries\UserQuery::class,
+                'user' => App\GraphQL\Queries\UserQuery::class,             
+                //retrieve a single user details
+                'user' => App\GraphQL\Queries\LoginQuery::class,
                 //retrieve a collection of users
                 'users' => App\GraphQL\Queries\UsersQuery::class,
             ],
